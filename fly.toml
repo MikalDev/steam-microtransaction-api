@@ -12,6 +12,7 @@ kill_timeout = "5s"
   STEAM_CURRENCY="usd"
   STEAM_ITEM_LOCALE="en"
   DEBUG="true"
+  HOST = "0.0.0.0"
 
 [[services]]
   protocol = "tcp"
@@ -40,4 +41,7 @@ kill_timeout = "5s"
 
 [metrics]
   port = 9091
-  path = "/metrics" 
+  path = "/metrics"
+
+[build]
+  dockerfile = "Dockerfile" 
