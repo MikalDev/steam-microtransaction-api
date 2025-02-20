@@ -1,4 +1,6 @@
-import products from './products.json';
+import steamProducts from './products.json';
+
+const products = steamProducts.items
 
 export default {
   /**

@@ -13,7 +13,7 @@ const itemDescSchema = z.string().max(1024, 'Description too long');
 // Header schemas
 const baseHeadersSchema = z.object({
   'content-type': z.literal('application/json')
-}).strict();
+});
 
 const appTicketHeadersSchema = baseHeadersSchema.extend({
   'x-steam-app-ticket': z.string().nonempty('App ticket is required')
@@ -25,7 +25,6 @@ export const routeSchemas = {
     headers: baseHeadersSchema,
     body: z.object({
       steamId: steamIdSchema,
-      appId: appIdSchema
     })
   }),
 

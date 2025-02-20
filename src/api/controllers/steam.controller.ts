@@ -2,7 +2,6 @@ import constants from '@src/constants';
 import { ISteamOpenTransaction, ISteamTransaction } from '@src/steam/steaminterfaces';
 import { Request, Response, NextFunction } from 'express';
 
-import { chain } from 'lodash';
 import { parseEncryptedAppTicket } from 'steam-appticket';
 
 // Improving type annotations for errors and response objects
@@ -54,7 +53,7 @@ export default {
         throw new Error(data.response?.error?.errordesc ?? 'Steam API returned unknown error');
       }
 
-      res.status(200).json({ success });
+      res.status(200).json({ success, ...data.response.params });
     } catch (err) {
       validateError(res, err as CustomError);
     }
@@ -84,7 +83,7 @@ export default {
   },
 
   initPurchase: async (req: Request, res: Response): Promise<void> => {
-    const { appId, category, itemDescription, itemId, steamId }: ISteamOpenTransaction =
+    const { appId, itemId, steamId }: ISteamOpenTransaction =
       req.body;
 
     let {orderId}: ISteamOpenTransaction = req.body;
@@ -94,10 +93,7 @@ export default {
     // it can also be stored in the database to check the purchase status, prevent double purchases, etc.
     orderId = generateOrderId();
 
-    const product = chain(constants.products)
-      .filter(p => p.id.toString() == itemId)
-      .first()
-      .value();
+    const product = constants.products.find(p => p.itemdefid.toString() == itemId);
 
     if (!product) {
       res.status(400).json({ error: 'ItemId not found in the game database' });
@@ -106,10 +102,10 @@ export default {
 
     try {
       const data = await req.steam.steamMicrotransactionInitWithOneItem({
+        category: product.category,
         appId,
-        category,
-        amount: product.price,
-        itemDescription,
+        amount: product.price_usd,
+        itemDescription: product.name,
         itemId,
         orderId,
         steamId,
@@ -159,6 +155,7 @@ export default {
     try {
       const data = await req.steam.steamMicrotransactionFinalizeTransaction(appId, orderId);
 
+      console.debug("finalizePurchase:\n", data);
       res.status(200).json({
         success: data.response.result === 'OK',
         ...(data.response?.error ? { error: data.response?.error?.errordesc } : {}),
@@ -170,7 +167,7 @@ export default {
 
   validateAppTicket: (req: Request, res: Response, next: NextFunction) => {
     const appTicket = req.header('x-steam-app-ticket');
-    const decryptionKey = process.env.STEAM_APP_DECRYPTION_KEY;
+    const decryptionKey = process.env.STEAM_APP_TICKET_KEY;
   
     if (!appTicket) {
       res.status(400).json({ error: 'Missing x-steam-app-ticket header' });
@@ -196,8 +193,8 @@ export default {
         return;
       }
   
-      const MAX_TICKET_AGE = parseInt(process.env.MAX_TICKET_AGE || '0');
-      if (Date.now() - ticketData.ownershipTicketGenerated.getTime() > MAX_TICKET_AGE) {
+      const steamAppTicketTimeout = parseInt(process.env.STEAM_APP_TICKET_TIMEOUT || '0');
+      if (Date.now() - ticketData.ownershipTicketGenerated.getTime() > steamAppTicketTimeout) {
         res.status(401).json({ error: 'App ticket has expired' });
         return;
       }

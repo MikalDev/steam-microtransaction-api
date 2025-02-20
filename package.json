@@ -14,7 +14,8 @@
     "test": "cross-env NODE_ENV=test jest --ci --verbose --silent=false --detectOpenHandles --forceExit",
     "lint": "eslint . --ext .js,.ts",
     "lint:fix": "eslint . --ext .js,.ts --fix",
-    "release": "release-it --git.requireBranch=main --no-npm.publish"
+    "release": "release-it --git.requireBranch=main --no-npm.publish",
+    "postinstall": "patch-package"
   },
   "repository": {
     "type": "git",
@@ -75,6 +76,8 @@
     "husky": "^8.0.3",
     "jest": "^29.7.0",
     "nodemon": "^3.1.7",
+    "patch-package": "^8.0.0",
+    "postinstall-postinstall": "^2.1.0",
     "prettier": "^2.2.1",
     "release-it": "^17.8.2",
     "supertest": "^7.0.0",
