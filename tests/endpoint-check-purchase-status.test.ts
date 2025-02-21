@@ -1,9 +1,9 @@
-import controllers from '../src/api/controllers/steam.controller';
+import controllers from '../src/api/controllers/steam.controller.js';
 import { getMockReq, getMockRes } from '@jest-mock/express';
 
-import { MockedRequestWithSteam, mockSteamApiGet, mockedSteamRequest } from './utils';
+import { MockedRequestWithSteam, mockSteamApiGet, mockedSteamRequest } from './utils.js';
 
-import checkPurchaseStatusMock from './mock/check-purchase-status-success-mock.json';
+import checkPurchaseStatusMock from './mock/check-purchase-status-success-mock.json' assert { type: 'json' };
 
 describe('Controller Test: /CheckPurchaseStatus', () => {
   it('Should return if the user owns', async () => {

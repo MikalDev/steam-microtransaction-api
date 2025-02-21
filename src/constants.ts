@@ -1,6 +1,32 @@
-import steamProducts from './products.json';
+import steamProducts from './products.json' assert { type: 'json' };
 
-const products = steamProducts.items
+export interface SteamProduct {
+  itemdefid: number;
+  type: 'bundle' | 'item';
+  name: string;
+  description: string;
+  display_type: string;
+  background_color: string;
+  name_color: string;
+  icon_url: string;
+  icon_url_large: string;
+  marketable: boolean;
+  tradable: boolean;
+  auto_stack: boolean;
+  category: string;
+  gold_quantity: number;
+  // Optional fields (only present on bundles)
+  price_category?: string;
+  price_usd?: number;
+  bundle?: string;
+  store_tags?: string;
+  store_images?: string;
+  hidden?: boolean;
+  store_hidden?: boolean;
+  granted_manually?: boolean;
+}
+
+const products: SteamProduct[] = steamProducts.items as SteamProduct[];
 
 export default {
   /**

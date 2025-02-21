@@ -1,6 +1,6 @@
-import steamController from './controllers/steam.controller';
-import { Express, Router } from 'express';
-import { validateRequest, routeSchemas } from '../zod';
+import steamController from './controllers/steam.controller.js';
+import { Express, Router, Request, Response, NextFunction } from 'express';
+import { validateRequest, routeSchemas } from '../zod/index.js';
 
 export default (app: Express): void => {
   const router = Router();
@@ -267,7 +267,7 @@ export default (app: Express): void => {
   app.use('/', router);
 
   // Error handling middleware
-  app.use((err: any, _req, res, _next) => {
+  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     res.status(500).json({
       error: 500,
       message: err.message || 'Something went wrong',

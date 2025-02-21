@@ -7,14 +7,13 @@ import express, { Express } from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
-import routes from './routes';
+import routes from './routes.js';
 
-import SteamRequest from '@src/steam/steamrequest';
-import httpclient from '@src/lib/httpclient';
+import SteamRequest from '@src/steam/steamrequest.js';
+import httpclient from '@src/lib/httpclient.js';
 import { IncomingMessage, Server, ServerResponse } from 'http';
 
 import hpp from 'hpp';
-import xssClean from 'xss-clean';
 
 import mongoSanitize from 'express-mongo-sanitize';
 
@@ -45,7 +44,17 @@ export default (
   app.use(cors(corsOptions));
 
   // Enable Helmet to add security-related HTTP headers
-  app.use(helmet());
+  app.use(helmet({
+    xssFilter: true,
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        imgSrc: ["'self'", "data:", "https:"],
+      },
+    }
+  }));
 
   // Disable 'X-Powered-By' to prevent attackers from knowing the framework
   app.disable('x-powered-by');
@@ -60,9 +69,6 @@ export default (
 
   // Prevent HTTP Parameter Pollution
   app.use(hpp());
-
-  // Prevent Cross-site Scripting (XSS) attacks
-  app.use(xssClean());
 
   // Prevent NoSQL Injection / Sanitize user input coming from POST body, GET queries, etc.
   app.use(mongoSanitize());

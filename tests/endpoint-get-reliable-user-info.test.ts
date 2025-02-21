@@ -1,4 +1,4 @@
-import controllers from '../src/api/controllers/steam.controller';
+import controllers from '../src/api/controllers/steam.controller.js';
 import { getMockReq, getMockRes } from '@jest-mock/express';
 
 import {
@@ -6,9 +6,9 @@ import {
   VALID_USER_STEAM_ID,
   mockSteamApiGet,
   mockedSteamRequest,
-} from './utils';
+} from './utils.js';
 
-import microTxGetUserInfoMock from './mock/micro-tx-get-user-info-success-mock.json';
+import microTxGetUserInfoMock from './mock/micro-tx-get-user-info-success-mock.json' assert { type: 'json' };
 
 describe('Controller Test: /GetReliableUserInfo', () => {
   it('Should return a valid user info', async () => {

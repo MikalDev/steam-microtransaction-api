@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import logger from './logger';
+import logger from './logger.js';
 
 export declare interface HttpClient {
   get<T>(url: string): Promise<T>;
@@ -25,9 +25,9 @@ const get = async <T>(url: string): Promise<T> => {
         message: err.message,
         response: err.response?.data,
         status: err.response?.status,
-        headers: err.config.headers,
-        method: err.config.method,
-        url: err.config.url,
+        headers: err.config?.headers,
+        method: err.config?.method,
+        url: err.config?.url,
       });
     } else {
       logger.error(`[STEAM-API CALL][UNKNOWN_ERROR][GET]: ${url}`, {
@@ -60,10 +60,10 @@ const post = async <T>(
         message: err.message,
         response: err.response?.data,
         status: err.response?.status,
-        headers: err.config.headers,
-        method: err.config.method,
-        url: err.config.url,
-        data: err.config.data,
+        headers: err.config?.headers,
+        method: err.config?.method,
+        url: err.config?.url,
+        data: err.config?.data,
       });
     } else {
       logger.error(`[STEAM-API CALL][UNKNOWN_ERROR][POST]: ${url}`, {

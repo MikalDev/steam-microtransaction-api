@@ -1,5 +1,5 @@
-import constants from '@src/constants';
-import { ISteamOpenTransaction, ISteamTransaction } from '@src/steam/steaminterfaces';
+import constants, { SteamProduct } from '@src/constants.js';
+import { ISteamOpenTransaction, ISteamTransaction } from '@src/steam/steaminterfaces.js';
 import { Request, Response, NextFunction } from 'express';
 
 import { parseEncryptedAppTicket } from 'steam-appticket';
@@ -93,8 +93,9 @@ export default {
     // it can also be stored in the database to check the purchase status, prevent double purchases, etc.
     orderId = generateOrderId();
 
-    const product = constants.products.find(p => p.itemdefid.toString() == itemId);
-
+    // Find the product that matches the itemId
+    const product = constants.products.find((p: SteamProduct) => p.itemdefid.toString() === itemId);
+    
     if (!product) {
       res.status(400).json({ error: 'ItemId not found in the game database' });
       return;
@@ -104,7 +105,7 @@ export default {
       const data = await req.steam.steamMicrotransactionInitWithOneItem({
         category: product.category,
         appId,
-        amount: product.price_usd,
+        amount: product.price_usd ?? 0,
         itemDescription: product.name,
         itemId,
         orderId,
@@ -188,7 +189,7 @@ export default {
         return;
       }
   
-      if (ticketData.appID !== parseInt(process.env.STEAM_APP_ID)) {
+      if (ticketData.appID !== parseInt(process.env.STEAM_APP_ID || '0')) {
         res.status(401).json({ error: 'App ticket is for wrong application' });
         return;
       }

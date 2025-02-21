@@ -1,5 +1,4 @@
-import SteamRequest from '@src/steam/steamrequest';
-
+import SteamRequest from '@src/steam/steamrequest.js';
 import { Request } from 'express';
 
 export const VALID_USER_STEAM_ID = '712313612361231236';
@@ -14,6 +13,7 @@ const mockHttpClient = {
 
 export interface MockedRequestWithSteam extends Request {
   steam: SteamRequest;
+  ip: string;
 }
 
 export const mockedSteamRequest = new SteamRequest(mockHttpClient);

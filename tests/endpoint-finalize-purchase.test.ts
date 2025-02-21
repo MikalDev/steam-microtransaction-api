@@ -1,9 +1,9 @@
-import controllers from '../src/api/controllers/steam.controller';
+import controllers from '../src/api/controllers/steam.controller.js';
 import { getMockReq, getMockRes } from '@jest-mock/express';
 
-import { MockedRequestWithSteam, mockSteamApiPost, mockedSteamRequest } from './utils';
+import { MockedRequestWithSteam, mockSteamApiPost, mockedSteamRequest } from './utils.js';
 
-import finalizePurchaseSuccessMock from './mock/micro-tx-finalize-transaction-success-mock.json';
+import finalizePurchaseSuccessMock from './mock/micro-tx-finalize-transaction-success-mock.json' assert { type: 'json' };
 
 describe('Controller Test: /FinalizePurchase', () => {
   it('Should return success confirming that the transaction is completed', async () => {

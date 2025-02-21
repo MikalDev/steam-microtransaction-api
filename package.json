@@ -9,13 +9,14 @@
   "scripts": {
     "build": "tsc",
     "build:doc": "apidoc -i src/ -o docs/",
-    "dev": "cross-env NODE_ENV=development nodemon --watch \"src/\"  --exec \"ts-node -r tsconfig-paths/register ./src/entrypoint.ts\" -e ts",
-    "start": "ts-node -r tsconfig-paths/register ./src/entrypoint.ts",
+    "dev": "cross-env NODE_ENV=development tsx watch src/entrypoint.ts",
+    "start": "node dist/entrypoint.js",
     "test": "cross-env NODE_ENV=test jest --ci --verbose --silent=false --detectOpenHandles --forceExit",
     "lint": "eslint . --ext .js,.ts",
     "lint:fix": "eslint . --ext .js,.ts --fix",
     "release": "release-it --git.requireBranch=main --no-npm.publish",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "clean": "rimraf dist"
   },
   "repository": {
     "type": "git",
@@ -29,41 +30,43 @@
   ],
   "author": "Jasiel Macedo",
   "license": "ISC",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/jasielmacedo/steam-microtransaction-api/issues"
   },
   "homepage": "https://github.com/jasielmacedo/steam-microtransaction-api#readme",
   "dependencies": {
-    "@types/cors": "^2.8.17",
-    "@types/express": "^5.0.0",
-    "@types/jest": "^29.5.13",
-    "@types/lodash": "^4.17.10",
-    "@types/node": "^22.7.5",
-    "@types/supertest": "^6.0.2",
-    "@typescript-eslint/eslint-plugin": "^5.52.0",
-    "@typescript-eslint/parser": "^5.52.0",
     "axios": "^1.7.7",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "debug": "^4.3.7",
     "dotenv": "^16.4.5",
-    "express": "^4.21.1",
+    "express": "^4.21.2",
     "express-mongo-sanitize": "^2.2.0",
     "express-rate-limit": "^7.4.1",
     "helmet": "^8.0.0",
     "hpp": "^0.2.3",
     "lodash": "^4.17.21",
     "morgan": "^1.10.0",
+    "rimraf": "^6.0.1",
     "steam-appticket": "^2.0.1",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.6.3",
     "winston": "^3.15.0",
-    "xss-clean": "^0.1.4",
     "zod": "^3.24.1"
   },
   "devDependencies": {
     "@jest-mock/express": "^2.1.0",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/hpp": "^0.2.6",
+    "@types/jest": "^29.5.13",
+    "@types/lodash": "^4.17.10",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^22.7.5",
+    "@types/supertest": "^6.0.2",
+    "@typescript-eslint/eslint-plugin": "^5.52.0",
+    "@typescript-eslint/parser": "^5.52.0",
     "apidoc": "^0.54.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.34.0",
@@ -81,7 +84,8 @@
     "prettier": "^2.2.1",
     "release-it": "^17.8.2",
     "supertest": "^7.0.0",
-    "ts-jest": "^29.2.5"
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.6.3"
   },
   "release-it": {
     "git": {

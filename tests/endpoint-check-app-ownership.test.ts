@@ -1,4 +1,4 @@
-import controllers from '../src/api/controllers/steam.controller';
+import controllers from '../src/api/controllers/steam.controller.js';
 import { getMockReq, getMockRes } from '@jest-mock/express';
 
 import {
@@ -6,9 +6,9 @@ import {
   VALID_USER_STEAM_ID,
   mockSteamApiGet,
   mockedSteamRequest,
-} from './utils';
+} from './utils.js';
 
-import checkAppOwnershipSuccessMock from './mock/check-app-ownership-success-mock.json';
+import checkAppOwnershipSuccessMock from './mock/check-app-ownership-success-mock.json' assert { type: 'json' };
 
 describe('Controller Test: /CheckAppOwnership', () => {
   it('Should return if the user owns', async () => {

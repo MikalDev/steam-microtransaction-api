@@ -1,4 +1,4 @@
-import constants from '@src/constants';
+import constants from '@src/constants.js';
 
 import {
   ISteamMicroGetUserInfo,
@@ -10,9 +10,9 @@ import {
   ISteamUserRequest,
   ISteamUserTicket,
   SteamOptions,
-} from './steaminterfaces';
+} from './steaminterfaces.js';
 
-import { HttpClient } from '@src/lib/httpclient';
+import { HttpClient } from '@src/lib/httpclient.js';
 
 export default class SteamRequest {
   private options: SteamOptions;
@@ -20,7 +20,7 @@ export default class SteamRequest {
 
   constructor(private httpClient: HttpClient) {
     this.options = {
-      webkey: constants.webkey,
+      webkey: constants.webkey || '',
       url: 'https://partner.steam-api.com/',
       version: 1,
     };
