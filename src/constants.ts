@@ -1,5 +1,8 @@
 import steamProducts from './products.json' assert { type: 'json' };
 
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 export interface SteamProduct {
   itemdefid: number;
   type: 'bundle' | 'item';
@@ -56,4 +59,38 @@ export default {
    * Please check https://partner.steamgames.com/doc/webapi/ISteamMicroTxnSandbox for more info
    */
   development: process.env.NODE_ENV == 'test' || process.env.NODE_ENV === 'development',
+  /**
+   * Enable debug logging
+   * @default false
+   */
+  debug: process.env.DEBUG === 'true' || false,
+  /**
+   * Host for the server
+   * @default localhost
+   */
+  host: process.env.HOST || 'localhost',
+  /**
+   * Port for the server
+   * @default 3000
+   */
+  port: process.env.PORT || 3000,
+  /**
+   * Decryption key for Steam callbacks
+   * This should be a secure random string used to verify Steam callbacks
+   */
+  decryptionKey: process.env.STEAM_DECRYPTION_KEY,
+  /**
+   * App ID for Steam callbacks
+   * This should be the app ID of the game
+   */
+  appId: process.env.STEAM_APP_ID,
+  /**
+   * Steam app ticket timeout
+   * This should be the timeout for the Steam app ticket
+   */
+  steamAppTicketTimeout: process.env.STEAM_APP_TICKET_TIMEOUT,
+  /**
+   * Level for the logger
+   * @default info
+   */
 };

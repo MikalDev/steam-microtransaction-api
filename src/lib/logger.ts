@@ -1,14 +1,15 @@
 import winston from 'winston';
+import constants from '@src/constants.js';
 
 const logger = winston.createLogger({
   format:
-    process.env.NODE_ENV === 'development'
+    constants.development
       ? winston.format.combine(
           winston.format.splat(),
           winston.format.prettyPrint({ colorize: true })
         )
       : winston.format.combine(winston.format.splat(), winston.format.simple()),
-  level: process.env.DEBUG ?? 'info',
+  level: constants.debug ? 'debug' : 'info',
 
   transports: [new winston.transports.Console()],
   exitOnError: false,

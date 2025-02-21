@@ -93,9 +93,12 @@ export default {
     // it can also be stored in the database to check the purchase status, prevent double purchases, etc.
     orderId = generateOrderId();
 
-    // Find the product that matches the itemId
-    const product = constants.products.find((p: SteamProduct) => p.itemdefid.toString() === itemId);
-    
+    // List all products for debugging purposes, then find the matching one
+    const product = constants.products.find((p: SteamProduct) => {
+        return p.itemdefid === Number(itemId);
+    });
+    console.debug("matching product:\n", product);
+
     if (!product) {
       res.status(400).json({ error: 'ItemId not found in the game database' });
       return;
@@ -168,7 +171,7 @@ export default {
 
   validateAppTicket: (req: Request, res: Response, next: NextFunction) => {
     const appTicket = req.header('x-steam-app-ticket');
-    const decryptionKey = process.env.STEAM_APP_TICKET_KEY;
+    const decryptionKey = constants.decryptionKey;
   
     if (!appTicket) {
       res.status(400).json({ error: 'Missing x-steam-app-ticket header' });
@@ -189,12 +192,12 @@ export default {
         return;
       }
   
-      if (ticketData.appID !== parseInt(process.env.STEAM_APP_ID || '0')) {
+      if (ticketData.appID !== parseInt(constants.appId || '0')) {
         res.status(401).json({ error: 'App ticket is for wrong application' });
         return;
       }
   
-      const steamAppTicketTimeout = parseInt(process.env.STEAM_APP_TICKET_TIMEOUT || '0');
+      const steamAppTicketTimeout = parseInt(constants.steamAppTicketTimeout || '0');
       if (Date.now() - ticketData.ownershipTicketGenerated.getTime() > steamAppTicketTimeout) {
         res.status(401).json({ error: 'App ticket has expired' });
         return;

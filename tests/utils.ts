@@ -13,7 +13,6 @@ const mockHttpClient = {
 
 export interface MockedRequestWithSteam extends Request {
   steam: SteamRequest;
-  ip: string;
 }
 
 export const mockedSteamRequest = new SteamRequest(mockHttpClient);

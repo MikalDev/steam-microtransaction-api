@@ -20,7 +20,7 @@ export default class SteamRequest {
 
   constructor(private httpClient: HttpClient) {
     this.options = {
-      webkey: constants.webkey || '',
+      webkey: constants.webkey || 'invalid-webkey',
       url: 'https://partner.steam-api.com/',
       version: 1,
     };

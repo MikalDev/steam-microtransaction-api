@@ -1,41 +1,43 @@
-# Build stage
 FROM node:20-slim AS builder
 
 # Create app directory
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
+# Copy package files and tsconfig.json first
+COPY package*.json tsconfig.json ./
 
-# Install ALL dependencies (including dev dependencies)
+# Install dependencies including tsx
 RUN npm install
-
-# Copy app source
-COPY . .
-
-# Build the TypeScript code
-RUN npm run build
-
-# Production stage
-FROM node:20-slim
-
-WORKDIR /app
-
-# Copy package files
-COPY package*.json ./
-
-# Install production dependencies without running scripts
-RUN npm install --production --ignore-scripts
 
 # Copy patches and apply them
 COPY patches ./patches
 RUN npx patch-package
 
-# Copy built JavaScript files from builder stage
-COPY --from=builder /app/dist ./dist
+# Copy source files needed for the build
+COPY src ./src
+
+# Final stage
+FROM node:20-slim
+
+WORKDIR /app
+
+# Create a non-root user
+RUN addgroup --system --gid 1001 nodejs \
+    && adduser --system --uid 1001 steammtxuser \
+    && chown -R steammtxuser:nodejs /app
+
+# Copy only the necessary files from builder
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/tsconfig.json ./
+COPY --from=builder /app/patches ./patches
+COPY --from=builder /app/src ./src
+
+# Switch to non-root user
+USER steammtxuser
 
 # Expose the port your app runs on
 EXPOSE 8080
 
 # Start the application
-CMD ["node", "./dist/entrypoint.js"] 
+CMD ["npm", "run", "start"] 

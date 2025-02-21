@@ -1,6 +1,7 @@
 import steamController from './controllers/steam.controller.js';
 import { Express, Router, Request, Response, NextFunction } from 'express';
 import { validateRequest, routeSchemas } from '../zod/index.js';
+import constants from '@src/constants.js';
 
 export default (app: Express): void => {
   const router = Router();
@@ -271,7 +272,7 @@ export default (app: Express): void => {
     res.status(500).json({
       error: 500,
       message: err.message || 'Something went wrong',
-      stack: process.env.NODE_ENV === 'development' ? err.stack : undefined,
+      stack: constants.development ? err.stack : undefined,
     });
   });
 
