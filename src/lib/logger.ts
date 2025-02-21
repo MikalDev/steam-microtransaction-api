@@ -1,5 +1,5 @@
 import winston from 'winston';
-import constants from '@src/constants.js';
+import constants from '../constants.js';
 
 const logger = winston.createLogger({
   format:

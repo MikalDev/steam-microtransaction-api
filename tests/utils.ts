@@ -1,4 +1,4 @@
-import SteamRequest from '@src/steam/steamrequest.js';
+import SteamRequest from '../src/steam/steamrequest.js';
 import { Request } from 'express';
 
 export const VALID_USER_STEAM_ID = '712313612361231236';

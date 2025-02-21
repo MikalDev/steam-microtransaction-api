@@ -6,8 +6,8 @@ import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
 import routes from './routes.js';
 
-import SteamRequest from '@src/steam/steamrequest.js';
-import httpclient from '@src/lib/httpclient.js';
+import SteamRequest from '../steam/steamrequest.js';
+import httpclient from '../lib/httpclient.js';
 import { IncomingMessage, Server, ServerResponse } from 'http';
 
 import hpp from 'hpp';

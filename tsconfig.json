@@ -18,13 +18,7 @@
     "sourceRoot": "/",
     "baseUrl": "./",
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "paths": {
-      "@api/*": ["src/api/*"],
-      "@thirdparty/*": ["src/thirdparty/*"],
-      "@src/*": ["src/*"],
-      "@tests/*": ["tests/*"]
-    }
+    "forceConsistentCasingInFileNames": true
   },
   "include": ["./**/*.ts"],
   "exclude": ["_warmup/**/*", ".vscode/**/*", "node_modules", "*.js"]

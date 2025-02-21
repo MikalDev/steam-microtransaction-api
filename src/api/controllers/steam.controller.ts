@@ -1,5 +1,5 @@
-import constants, { SteamProduct } from '@src/constants.js';
-import { ISteamOpenTransaction, ISteamTransaction } from '@src/steam/steaminterfaces.js';
+import constants, { SteamProduct } from '../../constants.js';
+import { ISteamOpenTransaction, ISteamTransaction } from '../../steam/steaminterfaces.js';
 import { Request, Response, NextFunction } from 'express';
 
 import { parseEncryptedAppTicket } from 'steam-appticket';

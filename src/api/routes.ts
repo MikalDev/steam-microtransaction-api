@@ -1,7 +1,7 @@
 import steamController from './controllers/steam.controller.js';
 import { Express, Router, Request, Response, NextFunction } from 'express';
 import { validateRequest, routeSchemas } from '../zod/index.js';
-import constants from '@src/constants.js';
+import constants from '../constants.js';
 
 export default (app: Express): void => {
   const router = Router();

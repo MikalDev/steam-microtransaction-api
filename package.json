@@ -7,11 +7,11 @@
     "test": "tests"
   },
   "scripts": {
-    "build": "npm run clean && tsc",
+    "build": "npm run clean && tsc && copyfiles -u 1 \"src/products.json\" dist/src",
     "build:doc": "apidoc -i src/ -o docs/",
     "dev": "cross-env NODE_ENV=development tsx watch src/entrypoint.ts",
     "start": "tsx ./src/entrypoint.ts",
-    "start:prod": "cross-env TS_NODE_PROJECT=tsconfig.prod.json node ./dist/src/entrypoint.js",
+    "start:prod": "node ./dist/src/entrypoint.js",
     "test": "cross-env NODE_ENV=test jest --ci --verbose --silent=false --detectOpenHandles --forceExit",
     "lint": "eslint . --ext .js,.ts",
     "lint:fix": "eslint . --ext .js,.ts --fix",
@@ -70,6 +70,7 @@
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
     "apidoc": "^0.54.0",
+    "copyfiles": "^2.4.1",
     "cross-env": "^7.0.3",
     "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.6.0",

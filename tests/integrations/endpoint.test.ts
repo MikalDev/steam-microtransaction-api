@@ -1,4 +1,4 @@
-import server from '@src/entrypoint.js';
+import server from '../../src/entrypoint.js';
 import supertest from 'supertest';
 import { Server } from 'http';
 

@@ -1,7 +1,17 @@
-import steamProducts from './products.json' assert { type: 'json' };
-
+import { readFileSync } from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 import * as dotenv from 'dotenv';
+
 dotenv.config();
+
+// Get the directory name of the current module
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+// Read and parse the JSON file
+const steamProducts = JSON.parse(
+  readFileSync(join(__dirname, './products.json'), 'utf-8')
+);
 
 export interface SteamProduct {
   itemdefid: number;

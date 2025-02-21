@@ -1,6 +1,6 @@
 import express from 'express';
-import server from '@api/server.js';
-import constants from '@src/constants.js';
+import server from './api/server.js';
+import constants from './constants.js';
 
 const app = server(express(), constants.host, constants.port);
 

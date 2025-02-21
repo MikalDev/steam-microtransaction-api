@@ -1,4 +1,4 @@
-import constants from '@src/constants.js';
+import constants from '../constants.js';
 
 import {
   ISteamMicroGetUserInfo,
@@ -12,7 +12,7 @@ import {
   SteamOptions,
 } from './steaminterfaces.js';
 
-import { HttpClient } from '@src/lib/httpclient.js';
+import { HttpClient } from '../lib/httpclient.js';
 
 export default class SteamRequest {
   private options: SteamOptions;
