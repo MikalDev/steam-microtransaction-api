@@ -1,5 +1,5 @@
 {
-  "appid": "3513320",
+  "appid": "1042650",
   "items": [
       {
         "itemdefid": 2,
@@ -53,12 +53,12 @@
         "bundle": "1x2750",
         "background_color": "3C352E",
         "name_color": "FFD700",
-        "icon_url": "https://keg.imgix.net/gold-bag-medium-200x200.png",
-        "icon_url_large": "https://keg.imgix.net/gold-bag-medium-200x200.png",
+        "icon_url": "https://keg.imgix.net/gold-bag-medium.png",
+        "icon_url_large": "https://keg.imgix.net/gold-bag-medium.png",
         "marketable": false,
         "tradable": false,
         "store_tags": "currency;gold;bag",
-        "store_images": "https://keg.imgix.net/gold-bag-medium-200x200.png;https://keg.imgix.net/gold-bag-medium-200x200.png",
+        "store_images": "https://keg.imgix.net/gold-bag-medium.png;https://keg.imgix.net/gold-bag-medium.png",
         "hidden": false,
         "store_hidden": false,
         "granted_manually": false,

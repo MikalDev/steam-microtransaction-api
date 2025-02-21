@@ -17,7 +17,7 @@ const baseHeadersSchema = z.object({
 
 const appTicketHeadersSchema = baseHeadersSchema.extend({
   'x-steam-app-ticket': z.string().nonempty('App ticket is required')
-}).strict();
+});
 
 // Route schemas
 export const routeSchemas = {

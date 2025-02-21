@@ -35,8 +35,8 @@ export default (app: Express): void => {
 
    * @apiHeader {String} content-type application/json *required
    *
-   * @apiParam  (json) {String} steamId User Steam ID
-   * @apiParam  (json) {String} appId Steam App/Game ID
+   * @apiBody {String} steamId User Steam ID
+   * @apiBody {String} appId Steam App/Game ID
    *
    * @apiSuccess (Response: 200) {Boolean} success Response Status
    *
@@ -73,8 +73,8 @@ export default (app: Express): void => {
 
    * @apiHeader {String} content-type application/json *required
    *
-   * @apiParam  (json) {String} steamId User Steam ID
-   * @apiParam  (json) {String} appId Steam App/Game ID
+   * @apiBody {String} steamId User Steam ID
+   * @apiBody {String} appId Steam App/Game ID
    *
    * @apiSuccess (Response: 200) {Boolean} success Response Status
    *
@@ -112,12 +112,12 @@ export default (app: Express): void => {
    * @apiHeader {String} content-type application/json *required
    * @apiHeader {String} x-steam-app-ticket Steam App Ticket
    *
-   * @apiParam  (json) {String} appId string,
-   * @apiParam  (json) {String} orderId number,
-   * @apiParam  (json) {Integer} itemId number,
-   * @apiParam  (json) {String} itemDescription string,
-   * @apiParam  (json) {String} category string,
-   * @apiParam  (json) {String} steamId User Steam ID
+   * @apiBody {String} appId string
+   * @apiBody {String} orderId number
+   * @apiBody {Integer} itemId number
+   * @apiBody {String} itemDescription string
+   * @apiBody {String} category string
+   * @apiBody {String} steamId User Steam ID
    *
    * @apiSuccess (Response: 200) {Boolean} transid Transaction Id
    *
@@ -174,8 +174,8 @@ export default (app: Express): void => {
    * @apiHeader {String} content-type application/json *required
    * @apiHeader {String} x-steam-app-ticket Steam App Ticket
    *
-   * @apiParam  (json) {String} appId Steam App Id
-   * @apiParam  (json) {String} orderId Order Id from client authorization
+   * @apiBody {String} appId Steam App Id
+   * @apiBody {String} orderId Order Id from client authorization
    *
    * @apiSuccess (Response: 200) {Boolean} success Return true if the transaction was finished successfully
    *
@@ -219,9 +219,9 @@ export default (app: Express): void => {
 
    * @apiHeader {String} content-type application/json *required
    *
-   * @apiParam  (json) {String} appId Steam App Id
-   * @apiParam  (json) {String} orderId Order Id
-   * @apiParam  (json) {String} transId Transaction Id
+   * @apiBody {String} appId Steam App Id
+   * @apiBody {String} orderId Order Id
+   * @apiBody {String} transId Transaction Id
    *
    * @apiSuccess (Response: 200) {Boolean} success
    * @apiSuccess (Response: 200) {Json} fields Retrieve Transaction Data

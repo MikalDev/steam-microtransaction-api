@@ -88,7 +88,7 @@ export default {
    * Decryption key for Steam callbacks
    * This should be a secure random string used to verify Steam callbacks
    */
-  decryptionKey: process.env.STEAM_DECRYPTION_KEY,
+  decryptionKey: process.env.STEAM_APP_TICKET_KEY,
   /**
    * App ID for Steam callbacks
    * This should be the app ID of the game
