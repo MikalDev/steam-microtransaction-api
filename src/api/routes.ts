@@ -6,6 +6,14 @@ import constants from '../constants.js';
 export default (app: Express): void => {
   const router = Router();
 
+  // Add URL logging middleware
+  router.use((req, res, next) => {
+    if (constants.development) {
+      console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
+    }
+    next();
+  });
+
   /**
    *
    * @api {get} / Initial route to check API Status
@@ -22,7 +30,7 @@ export default (app: Express): void => {
    * }
    */
   router.get('/', (_req, res) => {
-    res.status(200).json({ status: true });
+    res.status(200).json({ status: true, message: `API is running ${constants.development ? 'in development mode' : 'in production mode'} ${new Date().toLocaleString()}` });
   });
 
   /**
@@ -278,6 +286,6 @@ export default (app: Express): void => {
 
   // 404 handling for unknown routes
   app.use((_req, res) => {
-    res.status(404).send('');
+    res.status(404).send('Not found txn route');
   });
 };

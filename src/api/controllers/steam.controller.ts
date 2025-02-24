@@ -97,7 +97,6 @@ export default {
     const product = constants.products.find((p: SteamProduct) => {
         return p.itemdefid === Number(itemId);
     });
-    console.debug("matching product:\n", product);
 
     if (!product) {
       res.status(400).json({ error: 'ItemId not found in the game database' });

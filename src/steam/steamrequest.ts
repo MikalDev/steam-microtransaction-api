@@ -98,7 +98,7 @@ export default class SteamRequest {
       'category[0]': transaction.category,
     });
 
-    console.debug("steamMicrotransactionInitWithOneItem:\n", formData.toString());
+    // console.debug("steamMicrotransactionInitWithOneItem:\n", formData.toString());
 
     const response = await this._post<ISteamMicroTx>(
       this.interface,
@@ -108,7 +108,7 @@ export default class SteamRequest {
       `https://api.steampowered.com/`
     );
 
-    console.debug("steamMicrotransactionInitWithOneItem response:\n", response);
+    // console.debug("steamMicrotransactionInitWithOneItem response:\n", response);
 
     return response;
   }

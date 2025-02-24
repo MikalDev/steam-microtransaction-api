@@ -44,7 +44,7 @@ const post = async <T>(
   headers: Record<string, string> = { 'Content-Type': 'application/x-www-form-urlencoded' }
 ): Promise<T> => {
   try {
-    logger.debug(`[STEAM-API CALL][REQUEST][POST]: ${url}`, { payload: data });
+    logger.debug(`[STEAM-API CALL][REQUEST][POST]: ${url}`);
 
     const response = await axios.post<T>(url, data, { headers });
 
