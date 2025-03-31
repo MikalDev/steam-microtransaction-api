@@ -1,4 +1,45 @@
-import products from './products.json';
+import { readFileSync } from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
+
+// Get the directory name of the current module
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+// Read and parse the JSON file
+const steamProducts = JSON.parse(
+  readFileSync(join(__dirname, './products.json'), 'utf-8')
+);
+
+export interface SteamProduct {
+  itemdefid: number;
+  type: 'bundle' | 'item';
+  name: string;
+  description: string;
+  display_type: string;
+  background_color: string;
+  name_color: string;
+  icon_url: string;
+  icon_url_large: string;
+  marketable: boolean;
+  tradable: boolean;
+  auto_stack: boolean;
+  category: string;
+  gold_quantity: number;
+  // Optional fields (only present on bundles)
+  price_category?: string;
+  price_usd?: number;
+  bundle?: string;
+  store_tags?: string;
+  store_images?: string;
+  hidden?: boolean;
+  store_hidden?: boolean;
+  granted_manually?: boolean;
+}
+
+const products: SteamProduct[] = steamProducts.items as SteamProduct[];
 
 export default {
   /**
@@ -28,4 +69,38 @@ export default {
    * Please check https://partner.steamgames.com/doc/webapi/ISteamMicroTxnSandbox for more info
    */
   development: process.env.NODE_ENV == 'test' || process.env.NODE_ENV === 'development',
+  /**
+   * Enable debug logging
+   * @default false
+   */
+  debug: process.env.DEBUG === 'true' || false,
+  /**
+   * Host for the server
+   * @default localhost
+   */
+  host: process.env.HOST || 'localhost',
+  /**
+   * Port for the server
+   * @default 3000
+   */
+  port: process.env.PORT || 3000,
+  /**
+   * Decryption key for Steam callbacks
+   * This should be a secure random string used to verify Steam callbacks
+   */
+  decryptionKey: process.env.STEAM_APP_TICKET_KEY,
+  /**
+   * App ID for Steam callbacks
+   * This should be the app ID of the game
+   */
+  appId: process.env.STEAM_APP_ID,
+  /**
+   * Steam app ticket timeout
+   * This should be the timeout for the Steam app ticket
+   */
+  steamAppTicketTimeout: process.env.STEAM_APP_TICKET_TIMEOUT,
+  /**
+   * Level for the logger
+   * @default info
+   */
 };

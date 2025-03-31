@@ -1,4 +1,4 @@
-import constants from '@src/constants';
+import constants from '../constants.js';
 
 import {
   ISteamMicroGetUserInfo,
@@ -10,9 +10,9 @@ import {
   ISteamUserRequest,
   ISteamUserTicket,
   SteamOptions,
-} from './steaminterfaces';
+} from './steaminterfaces.js';
 
-import { HttpClient } from '@src/lib/httpclient';
+import { HttpClient } from '../lib/httpclient.js';
 
 export default class SteamRequest {
   private options: SteamOptions;
@@ -20,7 +20,7 @@ export default class SteamRequest {
 
   constructor(private httpClient: HttpClient) {
     this.options = {
-      webkey: constants.webkey,
+      webkey: constants.webkey || 'invalid-webkey',
       url: 'https://partner.steam-api.com/',
       version: 1,
     };
@@ -98,13 +98,19 @@ export default class SteamRequest {
       'category[0]': transaction.category,
     });
 
-    return await this._post<ISteamMicroTx>(
+    // console.debug("steamMicrotransactionInitWithOneItem:\n", formData.toString());
+
+    const response = await this._post<ISteamMicroTx>(
       this.interface,
       'InitTxn',
       3,
       formData,
       `https://api.steampowered.com/`
     );
+
+    // console.debug("steamMicrotransactionInitWithOneItem response:\n", response);
+
+    return response;
   }
 
   /**

@@ -1,4 +1,7 @@
 import express from 'express';
-import server from '@api/server';
+import server from './api/server.js';
+import constants from './constants.js';
 
-export default server(express(), process.env.HOST || '0.0.0.0', process.env.PORT || 3000);
+const app = server(express(), constants.host, constants.port);
+
+export default app;

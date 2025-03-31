@@ -2,6 +2,13 @@
 
 # Steam Microtransaction Bridge API [![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/NF7Fuhr2FZ)
 
+[![Deploy to Fly.io](https://fly.io/docs/static/images/deploy-to-fly-button.svg)](https://fly.io/launch/github/jasielmacedo/steam-microtransaction-api)
+- This has been more recently tested with the updates to this server (since 2025-02-22)
+- You must also add your secrets to the fly.io secrets registry for the new app (STEAM_WEB_KEY, STEAM_APP_TICKET_KEY, STEAM_APP_ID)
+- In the fly.toml file you can specify other environment variables, such as debug mode, etc.
+- Download fly.io CLI for Windows: [Windows Installer](https://fly.io/docs/hands-on/install-flyctl/#windows)
+- After you install the fly.io CLI, you can use the following command to deploy the app: `fly deploy`
+
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/jasielmacedo/steam-microtransaction-api)
 
 [![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/jasielmacedo/steam-microtransaction-api/tree/main)
@@ -32,9 +39,13 @@ This is a TypeScript (Node.js v18+) based API, and you can use services like Her
 
 To get started, follow these steps:
 
-1.  Install Node.js v18+.
+1.  Install Node.js v20+.
 2.  Clone or fork this repository.
 3.  Generate your Steam WEB API key.
+4.  Generate your Steam APP Ticket Key.
+5.  Get your Steam APP ID.
+6.  Update the `.env` file based on the `.env.example` file for local testing.
+7.  For production update fly.toml file with the correct values for install to fly.io server.
 
 To run the API locally and for testing, duplicate the file `env.example` and rename it to `.env`, and then update it with the correct values.
 
@@ -73,7 +84,14 @@ If the user has parental control and the callback was not called, you can check 
 
 ### SECURITY CHECK
 
-In-game purchases are not complicated, but you need to be sure that the Steam user is reliable. To avoid scammers, simply call the `/GetReliableUserInfo` endpoint. If the return is true, you can start the microtransaction.
+A good security check is for the user to send a steam encrypted app ticket to the server, and then the server will check if the ticket is valid, the ticket is for the correct app, and the user is logged in. This provides validated steamId, AppId. There are endpoints for purchasing and finalizing purchases, which are protected by validating app tickets before processing and making requests to the steam servers. It is recommended to use these endpoints to purchase and finalize purchases and disable the rest of the endpoints in production.
+
+[Previous security check: In-game purchases are not complicated, but you need to be sure that the Steam user is reliable. To avoid scammers, simply call the `/GetReliableUserInfo` endpoint. If the return is true, you can start the microtransaction. However if this is done by the client, it's not secure, so we recommend doing this check on the server side.]
+
+## Example with Construct 3
+
+You can check the example folder to see an example using Construct 3. You must also install the Greengrinds C3 Addon (1.13+) to use this example.
+
 
 ## EXAMPLE WITH UNITY (C#)
 

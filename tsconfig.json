@@ -4,24 +4,21 @@
     "emitDecoratorMetadata": true,
     "resolveJsonModule": true,
     "lib": ["es2022"],
+    "module": "nodenext",
     "removeComments": true,
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
     "noUnusedLocals": true,
+    "strict": true,
     "noUnusedParameters": true,
     "sourceMap": true,
-    "target": "es2022",
+    "target": "ES2022",
     "outDir": "dist",
     "inlineSources": true,
     "esModuleInterop": true,
     "sourceRoot": "/",
     "baseUrl": "./",
     "skipLibCheck": true,
-    "paths": {
-      "@api/*": ["src/api/*"],
-      "@thirdparty/*": ["src/thirdparty/*"],
-      "@src/*": ["src/*"],
-      "@tests/*": ["tests/*"]
-    }
+    "forceConsistentCasingInFileNames": true
   },
   "include": ["./**/*.ts"],
   "exclude": ["_warmup/**/*", ".vscode/**/*", "node_modules", "*.js"]

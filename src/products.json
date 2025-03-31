@@ -1,10 +1,94 @@
-[
-  {
-    "id": 1001,
-    "price": 199
-  },
-  {
-    "id": 1002,
-    "price": 299
-  }
-]
+{
+  "appid": "your_app_id",
+  "items": [
+      {
+        "itemdefid": 2,
+        "type": "bundle",
+        "name": "10 Gold",
+        "description": "A bag containing 10 gold pieces",
+        "display_type": "Currency Item",
+        "price_category": "VLV10",
+        "price_usd": 9,
+        "bundle": "1x10",
+        "background_color": "3C352E",
+        "name_color": "FFD700",
+        "icon_url": "https://keg.imgix.net/gold-bag-small-200x200.png",
+        "icon_url_large": "https://keg.imgix.net/gold-bag-small-200x200.png",
+        "marketable": false,
+        "tradable": false,
+        "store_tags": "currency;gold;bag",
+        "store_images": "https://keg.imgix.net/gold-bag-small-200x200.png;https://keg.imgix.net/gold-bag-small-200x200.png",
+        "hidden": false,
+        "store_hidden": false,
+        "granted_manually": false,
+        "auto_stack": true,
+        "category": "gold",
+        "gold_quantity": 10
+      },
+      {
+        "itemdefid": 1,
+        "type": "item",
+        "name": "1 Gold",
+        "description": "A single piece of gold currency",
+        "display_type": "Currency",
+        "background_color": "3C352E",
+        "name_color": "FFD700",
+        "icon_url": "https://keg.imgix.net/gold-bag-small-200x200.png",
+        "icon_url_large": "https://keg.imgix.net/gold-bag-small-200x200.png",
+        "marketable": false,
+        "tradable": false,
+        "store_hidden": true,
+        "auto_stack": true,
+        "category": "gold",
+        "gold_quantity": 1
+      },
+      {
+        "itemdefid": 3,
+        "type": "bundle",
+        "name": "2750 Gold",
+        "description": "A bag containing 2750 gold pieces",
+        "display_type": "Currency Item",
+        "price_category": "VLV2500",
+        "price_usd": 2499,
+        "bundle": "1x2750",
+        "background_color": "3C352E",
+        "name_color": "FFD700",
+        "icon_url": "https://keg.imgix.net/gold-bag-medium.png",
+        "icon_url_large": "https://keg.imgix.net/gold-bag-medium.png",
+        "marketable": false,
+        "tradable": false,
+        "store_tags": "currency;gold;bag",
+        "store_images": "https://keg.imgix.net/gold-bag-medium.png;https://keg.imgix.net/gold-bag-medium.png",
+        "hidden": false,
+        "store_hidden": false,
+        "granted_manually": false,
+        "auto_stack": true,
+        "category": "gold",
+        "gold_quantity": 2750
+      },
+      {
+        "itemdefid": 4,
+        "type": "bundle",
+        "name": "6000 Gold",
+        "description": "A bag containing 6000 gold pieces",
+        "display_type": "Currency Item",
+        "price_category": "VLV5000",
+        "price_usd": 4999,
+        "bundle": "1x6000",
+        "background_color": "3C352E",
+        "name_color": "FFD700",
+        "icon_url": "https://keg.imgix.net/gold-bag-large-200x200.png",
+        "icon_url_large": "https://keg.imgix.net/gold-bag-large-200x200.png",
+        "marketable": false,
+        "tradable": false,
+        "store_tags": "currency;gold",
+        "store_images": "https://keg.imgix.net/gold-bag-large-200x200.png;https://keg.imgix.net/gold-bag-large-200x200.png",
+        "hidden": false,
+        "store_hidden": false,
+        "granted_manually": false,
+        "auto_stack": true,
+        "category": "gold",
+        "gold_quantity": 6000
+      }
+  ]
+}

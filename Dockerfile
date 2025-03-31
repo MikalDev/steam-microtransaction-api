@@ -1,47 +1,43 @@
-# syntax = docker/dockerfile:1
+FROM node:20-slim AS builder
 
-# Adjust NODE_VERSION as desired
-ARG NODE_VERSION=20.18.0
-FROM node:${NODE_VERSION}-slim AS base
-
-LABEL fly_launch_runtime="Node.js"
-
-# Node.js app lives here
+# Create app directory
 WORKDIR /app
 
-# Set production environment
-ENV NODE_ENV="production"
-ARG YARN_VERSION=1.22.21
-RUN npm install -g yarn@$YARN_VERSION --force
+# Copy package files and tsconfig.json first
+COPY package*.json tsconfig.json ./
 
+# Install dependencies including tsx
+RUN npm install
 
-# Throw-away build stage to reduce size of final image
-FROM base AS build
+# Copy patches and apply them
+COPY patches ./patches
+RUN npx patch-package
 
-# Install packages needed to build node modules
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential node-gyp pkg-config python-is-python3
+# Copy source files needed for the build
+COPY src ./src
 
-# Install node modules
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile --production=false
+# Final stage
+FROM node:20-slim
 
-# Copy application code
-COPY . .
+WORKDIR /app
 
-# Build application
-RUN yarn run build
+# Create a non-root user
+RUN addgroup --system --gid 1001 nodejs \
+    && adduser --system --uid 1001 steammtxuser \
+    && chown -R steammtxuser:nodejs /app
 
-# Remove development dependencies
-RUN yarn install --production=true
+# Copy only the necessary files from builder
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/tsconfig.json ./
+COPY --from=builder /app/patches ./patches
+COPY --from=builder /app/src ./src
 
+# Switch to non-root user
+USER steammtxuser
 
-# Final stage for app image
-FROM base
+# Expose the port your app runs on
+EXPOSE 8080
 
-# Copy built application
-COPY --from=build /app /app
-
-# Start the server by default, this can be overwritten at runtime
-EXPOSE 3000
-CMD [ "yarn", "run", "start" ]
+# Start the application
+CMD ["npm", "run", "start"]

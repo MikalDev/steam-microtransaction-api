@@ -1,10 +1,8 @@
-import server from '@src/entrypoint';
-import supertest, { Test } from 'supertest';
-
+import server from '../../src/entrypoint.js';
+import supertest from 'supertest';
 import { Server } from 'http';
-import TestAgent from 'supertest/lib/agent';
 
-let request: TestAgent<Test>;
+let request: ReturnType<typeof supertest>;
 let httpServer: Server;
 
 describe('API health status', () => {

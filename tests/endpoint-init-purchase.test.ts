@@ -1,4 +1,4 @@
-import controllers from '../src/api/controllers/steam.controller';
+import controllers from '../src/api/controllers/steam.controller.js';
 import { getMockReq, getMockRes } from '@jest-mock/express';
 
 import {
@@ -6,10 +6,10 @@ import {
   VALID_USER_STEAM_ID,
   mockSteamApiPost,
   mockedSteamRequest,
-} from './utils';
+} from './utils.js';
 
-import microTxInitTransactionFailedMock from './mock/micro-tx-init-transaction-failed-mock.json';
-import microTxInitTransactionSuccessMock from './mock/micro-tx-init-transaction-success-mock.json';
+import microTxInitTransactionFailedMock from './mock/micro-tx-init-transaction-failed-mock.json' assert { type: 'json' };
+import microTxInitTransactionSuccessMock from './mock/micro-tx-init-transaction-success-mock.json' assert { type: 'json' };
 
 describe('Controller Test: /InitPurchase', () => {
   const body = {
