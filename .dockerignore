@@ -92,3 +92,10 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/ 
+=======
+/.git
+/node_modules
+.dockerignore
+.env
+Dockerfile
+fly.toml

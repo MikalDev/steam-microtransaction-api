@@ -40,4 +40,4 @@ USER steammtxuser
 EXPOSE 8080
 
 # Start the application
-CMD ["npm", "run", "start"] 
+CMD ["npm", "run", "start"]
